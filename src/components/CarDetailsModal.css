@@ -1,0 +1,80 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 3px;
+  width: 90vw;
+  height: 85vh;
+  margin-top: -10%;
+  position: relative;
+  text-align: right;
+}
+
+.close-button {
+  padding: 0px 10px 5px 10px ;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background-color: var(--black);
+  color: var(--white);
+  
+}
+
+.car-image-modal {
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  height: 35%;
+}
+
+.car-image-modal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.car-info-modal{
+  padding: 0 10px;
+}
+.details{
+  display: flex;
+  align-items: center;
+  padding: 3px 0px;
+  margin-top: 1%;
+  padding-right: 10px;
+  border-radius: 4px;
+  background: rgb(238, 238, 238);
+}
+.details p{
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.pre{
+  font-size: 20px;
+}
+
+.car-info-modal h2 {
+  margin-bottom: 8px;
+  font-size: 20px;
+}

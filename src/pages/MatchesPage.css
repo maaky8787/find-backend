@@ -1,0 +1,93 @@
+.matches-page {
+  height: 100dvh;
+  min-height: 100dvh;
+  background: var(--sc-White);
+  position: relative;
+}
+.matches-header {
+  padding: 0;
+  padding-top: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.page-header h1 {
+  position: absolute;
+  right: 55px;
+  top: 42px;
+  color: var(--black);
+  font-size: 20px;
+  font-weight: 700;
+}
+.matches-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.match-card {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px #0001;
+}
+.match-type {
+  display: flex;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+.match-cars {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.car-block {
+  flex: 1;
+  background: #e9e9e9;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: right;
+}
+.car-label {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.car-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.car-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.detailsCarMatch{
+  
+}
+.loading, .no-matches {
+  text-align: center;
+  color: var(--black);
+  margin-top: 40px;
+  font-size: 18px;
+} 
+
+/* التطابقات المؤرشفة */
+.match-card.archived {
+  background: #f8f9fa;
+  border-left: 4px solid #6c757d;
+}
+
+.match-card.archived .match-type h3 {
+  color: #6c757d !important;
+}
+
+.match-card.archived .car-block {
+  opacity: 0.8;
+} 
