@@ -7,13 +7,15 @@ const supabaseKey = process.env.SUPABASE_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
-// التحقق من اتصال Supabase
+// التحقق من الاتصال بـ Supabase
 export async function checkSupabaseConnection() {
-  try {
-    const { data, error } = await supabase.from('losts').select('id').limit(1);
-    if (error) throw error;
-    console.log('✅ تم الاتصال بـ Supabase بنجاح');
-  } catch (error) {
-    console.error('❌ خطأ في الاتصال بـ Supabase:', error);
-  }
+    try {
+        const { data, error } = await supabase.from('losts').select('count');
+        if (error) throw error;
+        console.log('✅ تم الاتصال بـ Supabase بنجاح');
+        return true;
+    } catch (error) {
+        console.error('❌ خطأ في الاتصال بـ Supabase:', error);
+        return false;
+    }
 }

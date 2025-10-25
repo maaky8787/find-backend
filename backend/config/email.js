@@ -3,61 +3,47 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // ترو فقط لبورت 465
   auth: {
-    type: 'OAuth2',
     user: process.env.EMAIL_USER,
-    clientId: process.env.GMAIL_CLIENT_ID,
-    clientSecret: process.env.GMAIL_CLIENT_SECRET,
-    refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-    accessToken: process.env.GMAIL_ACCESS_TOKEN
+    pass: process.env.EMAIL_PASS
   },
-  pool: true, // استخدام connection pool
-  maxConnections: 5,
-  maxMessages: 100,
-  rateDelta: 1000, // وقت الانتظار بين الرسائل
-  rateLimit: 5 // عدد الرسائل في الثانية
+  tls: {
+    rejectUnauthorized: false // مهم في بعض بيئات الاستضافة
+  },
+  // إعدادات إضافية لتحسين الاتصال
+  connectionTimeout: 10000, // 10 ثواني
+  greetingTimeout: 5000,  // 5 ثواني
+  socketTimeout: 10000    // 10 ثواني
 });
 
 // التحقق من تكوين البريد
 export async function checkEmailConfig() {
-  // التحقق من وجود المتغيرات المطلوبة
-  const requiredVars = [
-    'EMAIL_USER',
-    'GMAIL_CLIENT_ID',
-    'GMAIL_CLIENT_SECRET',
-    'GMAIL_REFRESH_TOKEN'
-  ];
-
-  const missingVars = requiredVars.filter(varName => !process.env[varName]);
-  
-  if (missingVars.length > 0) {
-    console.error('❌ متغيرات البيئة المفقودة:', missingVars.join(', '));
-    return false;
-  }
-
   try {
-    // محاولة إرسال رسالة اختبار
     await transporter.verify();
     console.log('✅ تم تكوين خدمة البريد بنجاح');
-    
-    // محاولة إرسال بريد اختباري
-    const testResult = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: 'اختبار الاتصال',
-      text: 'هذا اختبار للتحقق من عمل خدمة البريد'
-    });
-    
-    console.log('✅ تم إرسال بريد الاختبار بنجاح:', testResult.messageId);
     return true;
   } catch (error) {
-    console.error('❌ خطأ في تكوين خدمة البريد:', {
-      code: error.code,
-      command: error.command,
-      info: error.response,
-      message: error.message
+    console.error('❌ خطأ في تكوين خدمة البريد:', error);
+    return false;
+  }
+}
+
+// دالة إرسال البريد
+export async function sendEmail({ to, subject, html }) {
+  try {
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to,
+      subject,
+      html
     });
+    console.log('✅ تم إرسال البريد بنجاح:', info.messageId);
+    return true;
+  } catch (error) {
+    console.error('❌ خطأ في إرسال البريد:', error);
     return false;
   }
 }
